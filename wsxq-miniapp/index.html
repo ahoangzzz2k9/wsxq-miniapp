@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WSXQ Bot - Làm nhiệm vụ</title>
+    <!-- Nhúng thư viện Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #2AABEE;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0 auto 10px auto;
+        }
+        .balance-card {
+            background-color: var(--tg-theme-secondary-bg-color, #f1f1f1);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+        }
+        .balance-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--tg-theme-button-color, #2481cc);
+        }
+        .task-btn {
+            background-color: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            max-width: 400px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .task-btn:active {
+            opacity: 0.8;
+        }
+        .note {
+            margin-top: 30px;
+            font-size: 12px;
+            color: gray;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="avatar" id="user-initial">W</div>
+        <h2 id="greeting">Chào bạn!</h2>
+    </div>
+
+    <div class="balance-card">
+        <p style="margin: 0; font-size: 14px; color: gray;">Số dư khả dụng</p>
+        <div class="balance-amount">0 <span style="font-size: 16px;">VNĐ</span></div>
+    </div>
+
+    <button class="task-btn" onclick="doTask()">Làm nhiệm vụ ngay</button>
+
+    <p class="note">Đây là giao diện mẫu. Hệ thống đang được kết nối với QuestLab...</p>
+
+    <script>
+        // Khởi tạo Telegram WebApp
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Mở rộng giao diện toàn màn hình
+
+        // Lấy thông tin người dùng từ Telegram
+        const user = tg.initDataUnsafe?.user;
+        
+        if (user) {
+            // Nếu có thông tin user, hiển thị tên
+            document.getElementById('greeting').innerText = "Chào " + user.first_name + "!";
+            document.getElementById('user-initial').innerText = user.first_name.charAt(0).toUpperCase();
+        } else {
+            document.getElementById('greeting').innerText = "Chào khách!";
+        }
+
+        // Hàm xử lý khi bấm nút nhiệm vụ
+        function doTask() {
+            // Hiệu ứng rung (nếu thiết bị hỗ trợ)
+            tg.HapticFeedback.impactOccurred('medium');
+            
+            // Hiển thị thông báo
+            tg.showAlert("Tính năng đang được phát triển! Hệ thống sẽ sớm kết nối với API của QuestLab để trả tiền cho bạn.");
+        }
+    </script>
+</body>
+</html>
